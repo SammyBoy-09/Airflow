@@ -1,0 +1,292 @@
+etl:
+  name: customer_etl
+  description: "ETL pipeline for cleaning customer Excel/CSV data"
+
+  paths:
+    input_file: "customers_200.xlsx"
+    intermediate_csv: "customer.csv"
+    output_csv: "cleaned_data.csv"
+    output_excel: "cleaned_data.xlsx"
+    summary_csv: "data/processed/orders_summary.csv"
+    summary_excel: "data/processed/orders_summary.xlsx"
+
+  operations:
+
+
+    # 1. Convert empty / whitespace-only values to NaN (all columns)
+    empty_to_nan:
+      enabled: true
+      pattern: "^\s*$"
+
+    # 2. Fill missing names with 'Unknown'
+    fill_missing_names:
+      enabled: true
+      column: "name"
+      value: "Unknown"
+
+    # 3. Remove duplicate customers based on email
+    remove_duplicates:
+      enabled: true
+      subset: "email"
+      keep: "first"
+
+    # 4. Validate email format and drop invalid emails
+    email_validation:
+      enabled: true
+      column: "email"
+      regex:  "^[^@ ]+@[^@ ]+\.[^@ ]+$"  # or "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"
+      drop_invalid: true
+
+    # 5. Convert names to uppercase
+    uppercase_names:
+      enabled: true
+      column: "name"
+
+    # 6. Trim spaces for all string columns
+    trim_spaces:
+      enabled: true
+      apply_to: "all_string_columns"
+
+    # 7. Convert last_order_date to datetime and sort by newest first
+    date_processing:
+      enabled: true
+      column: "last_order_date"
+      errors: "coerce"
+      sorting:
+        enabled: true
+        order: "descending"
+etl:
+  name: customer_etl
+  description: "ETL pipeline for cleaning customer Excel/CSV data"
+
+  paths:
+    input_file: "customers_200.xlsx"
+    intermediate_csv: "customer.csv"
+    output_csv: "cleaned_data.csv"
+    output_excel: "cleaned_data.xlsx"
+
+  operations:
+    # 1. Convert empty / whitespace-only values to NaN (all columns)
+    empty_to_nan:
+      enabled: true
+      pattern: "^\s*$"
+
+    # 2. Fill missing names with 'Unknown'
+    fill_missing_names:
+      enabled: true
+      column: "name"
+      value: "Unknown"
+
+    # 3. Remove duplicate customers based on email
+    remove_duplicates:
+      enabled: true
+      subset: "email"
+      keep: "first"
+
+    # 4. Validate email format and drop invalid emails
+    email_validation:
+      enabled: true
+      column: "email"
+      regex: "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"
+      drop_invalid: true
+
+    # 5. Convert names to uppercase
+    uppercase_names:
+      enabled: true
+      column: "name"
+
+    # 6. Trim spaces for all string columns
+    trim_spaces:
+      enabled: true
+      apply_to: "all_string_columns"
+
+    # 7. Convert last_order_date to datetime and sort by newest first
+    date_processing:
+      enabled: true
+      column: "last_order_date"
+      errors: "coerce"
+      sorting:
+        enabled: true
+        order: "descending"
+    # 8. Age column validation
+    data_validation:
+      enabled: true
+      column: "age"
+      convert_to_numeric: true
+      errors: "coerce"
+      fill_missing: "mean"etl:
+  name: customer_etl
+  description: "ETL pipeline for cleaning customer Excel/CSV data"
+
+  paths:
+    input_file: "customers_200.xlsx"
+    intermediate_csv: "customer.csv"
+    output_csv: "cleaned_data.csv"
+    output_excel: "cleaned_data.xlsx"
+
+  operations:
+
+
+    # 1. Convert empty / whitespace-only values to NaN (all columns)
+    empty_to_nan:
+      enabled: true
+      pattern: "^\s*$"
+
+    # 2. Fill missing names with 'Unknown'
+    fill_missing_names:
+      enabled: true
+      column: "name"
+      value: "Unknown"
+
+    # 3. Remove duplicate customers based on email
+    remove_duplicates:
+      enabled: true
+      subset: "email"
+      keep: "first"
+
+    # 4. Validate email format and drop invalid emails
+    email_validation:
+      enabled: true
+      column: "email"
+      regex: "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"
+      drop_invalid: true
+
+    # 5. Convert names to uppercase
+    uppercase_names:
+      enabled: true
+      column: "name"
+
+    # 6. Trim spaces for all string columns
+    trim_spaces:
+      enabled: true
+      apply_to: "all_string_columns"
+
+    # 7. Convert last_order_date to datetime and sort by newest first
+    date_processing:
+      enabled: true
+      column: "last_order_date"
+      errors: "coerce"
+      sorting:
+        enabled: true
+        order: "descending"
+etl:
+  name: customer_etl
+  description: "ETL pipeline for cleaning customer Excel/CSV data"
+
+  paths:
+    input_file: "customers_200.xlsx"
+    intermediate_csv: "customer.csv"
+    output_csv: "cleaned_data.csv"
+    output_excel: "cleaned_data.xlsx"
+
+  operations:
+    # 1. Convert empty / whitespace-only values to NaN (all columns)
+    empty_to_nan:
+      enabled: true
+      pattern: "^\s*$"
+
+    # 2. Fill missing names with 'Unknown'
+    fill_missing_names:
+      enabled: true
+      column: "name"
+      value: "Unknown"
+
+    # 3. Remove duplicate customers based on email
+    remove_duplicates:
+      enabled: true
+      subset: "email"
+      keep: "first"
+
+    # 4. Validate email format and drop invalid emails
+    email_validation:
+      enabled: true
+      column: "email"
+      regex: "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"
+      drop_invalid: true
+
+    # 5. Convert names to uppercase
+    uppercase_names:
+      enabled: true
+      column: "name"
+
+    # 6. Trim spaces for all string columns
+    trim_spaces:
+      enabled: true
+      apply_to: "all_string_columns"
+
+    # 7. Convert last_order_date to datetime and sort by newest first
+    date_processing:
+      enabled: true
+      column: "last_order_date"
+      errors: "coerce"
+      sorting:
+        enabled: true
+        order: "descending"
+    # 8. Age column validation
+    data_validation:
+      enabled: true
+      column: "age"
+      convert_to_numeric: true
+      errors: "coerce"
+      fill_missing: "mean"
+      output_type: "int"
+
+    # 9. Global aggregations on orders column
+    global_aggregations:
+      enabled: true
+      column: "orders"
+      metrics:
+        - max
+        - min
+        - sum
+      save_to:
+        csv: true
+        excel: true
+
+    # 10. Group-by state aggregations on orders
+    groupby_aggregations:
+      enabled: true
+      group_by: "state"
+      column: "orders"
+      metrics:
+        - max
+        - min
+        - sum
+      output:
+        same_summary_file: true
+        excel_sheets:
+          - global_summary
+          - state_summary
+
+    # 11. Feature engineering logics
+    feature_engineering:
+      enabled: true
+
+      customer_type:
+        enabled: true
+        source_column: "orders"
+        logic:
+          loyal_threshold: 100
+        values:
+          loyal: "LOYAL"
+          regular: "REGULAR"
+
+      customer_tenure_days:
+        enabled: true
+        reference_date: "today"
+        source_column: "last_order_date"
+
+      date_features:
+        enabled: true
+        source_column: "last_order_date"
+        features:
+          - year
+          - month
+          - day_name
+
+    # 12. Normalization & scaling (Min-Max)
+    normalization:
+      enabled: true
+      column: "total_spend"
+      method: "min_max"
+      output_column: "total_spend_normalized"
